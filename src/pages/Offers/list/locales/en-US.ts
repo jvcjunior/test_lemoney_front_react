@@ -6,4 +6,6 @@ export default {
   'lists.header.ends_at': 'Ends at',
   'lists.header.url': 'URL',
   'lists.header.actions': 'Actions',
+  'messages.delete.offer.success': 'Offer destroyed with success',
+  'messages.delete.offer.error': 'No possible to destroy an Offer'
 };

@@ -2,15 +2,15 @@ import { Card } from 'antd';
 import { connect, FormattedMessage } from 'umi';
 import React, { FC } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import SchoolForm from '../commomForm';
+import OfferForm from '../commomForm';
 
 interface BasicFormProps {
-  companySchoolForm: any;
+  offerForm: any;
   submitting: boolean;
   dispatch: any;
 }
 
-const CreateSchoolForm: FC<BasicFormProps> = (props) => {
+const CreateOfferForm: FC<BasicFormProps> = (props) => {
   const {
     submitting,
     dispatch,
@@ -18,7 +18,7 @@ const CreateSchoolForm: FC<BasicFormProps> = (props) => {
 
   const onFinish = (values: { [key: string]: any }) => {
     dispatch({
-      type: 'companySchoolForm/addSchool',
+      type: 'offerForm/addOffer',
       payload: values
     });
   };
@@ -29,10 +29,10 @@ const CreateSchoolForm: FC<BasicFormProps> = (props) => {
 
   return (
   <PageHeaderWrapper 
-    title={<FormattedMessage id="form.create.schools.title"/>} 
-    content={<FormattedMessage id="form.create.schools.subtitle" />}>
+    title={<FormattedMessage id="form.create.Offers.title"/>} 
+    content={<FormattedMessage id="form.create.Offers.subtitle" />}>
       <Card bordered={false}>
-        <SchoolForm {...props} 
+        <OfferForm {...props} 
           submitting={submitting} 
           onFinishFailed={onFinishFailed} 
           onFinish={onFinish}
@@ -44,17 +44,17 @@ const CreateSchoolForm: FC<BasicFormProps> = (props) => {
 
 export default connect(
   ({
-    companySchoolForm,
+    offerForm,
     loading,
   }: {
-    companySchoolForm: any;
+    offerForm: any;
     loading: {
       models: { [key: string]: boolean };
       effects: { [key: string]: boolean };
     };
   }) => ({
-    companySchoolForm,
-    loading: loading.models.companySchoolForm,
-    submitting: loading.effects['companySchoolForm/addSchool'],
+    offerForm,
+    loading: loading.models.offerForm,
+    submitting: loading.effects['offerForm/addOffer'],
   }),
-)(CreateSchoolForm);
+)(CreateOfferForm);

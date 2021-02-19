@@ -3,18 +3,18 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Card } from 'antd';
 import React, { FC, useEffect } from 'react';
 import { connect, FormattedMessage } from 'umi';
-import SchoolForm from '../commomForm';
+import OfferForm from '../commomForm';
 import { StateType } from '../model';
 
 interface BasicFormProps {
-  companySchoolForm: StateType;
+  offerForm: StateType;
   submitting: boolean;
   loading: boolean;
   dispatch: any;
   match: any;
 }
 
-const EditSchoolForm: FC<BasicFormProps> = (props) => {
+const EditOfferForm: FC<BasicFormProps> = (props) => {
   const {
     submitting,
     dispatch,
@@ -23,17 +23,17 @@ const EditSchoolForm: FC<BasicFormProps> = (props) => {
   
   useEffect(() => {
     dispatch({
-      type: 'companySchoolForm/fetchSchool',
-      payload: match.params.schoolId
+      type: 'offerForm/fetchOffer',
+      payload: match.params.id
     });
   }, [1]);
   
 
   const onFinish = (values: { [key: string]: any }) => {
     dispatch({
-      type: 'companySchoolForm/editSchool',
+      type: 'offerForm/editOffer',
       payload: {
-        schoolId: match.params.schoolId,
+        offerId: match.params.id,
         data: values,
       },
     });
@@ -46,9 +46,9 @@ const EditSchoolForm: FC<BasicFormProps> = (props) => {
   return (
   <PageHeaderWrapper 
     title={<FormattedMessage id="form.edit.schools.title"/>} 
-    content={<FormattedMessage id="form.edit.schools.subtitle" />}>
+    >
       <Card bordered={false}>
-        <SchoolForm 
+        <OfferForm 
           {...props} 
           submitting={submitting}
           onFinishFailed={onFinishFailed} 
@@ -61,17 +61,17 @@ const EditSchoolForm: FC<BasicFormProps> = (props) => {
 
 export default connect(
   ({
-    companySchoolForm,
+    offerForm,
     loading,
   }: {
-    companySchoolForm: StateType;
+    offerForm: StateType;
     loading: {
       models: { [key: string]: boolean };
       effects: { [key: string]: boolean };
     };
   }) => ({
-    companySchoolForm,
-    loading: loading.models.companySchoolForm,
-    submitting: loading.effects['companySchoolForm/editSchool'],
+    offerForm,
+    loading: loading.models.offerForm,
+    submitting: loading.effects['offerForm/editOffer'],
   }),
-)(EditSchoolForm);
+)(EditOfferForm);

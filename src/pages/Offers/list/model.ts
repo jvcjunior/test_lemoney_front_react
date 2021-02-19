@@ -1,5 +1,5 @@
 import { Effect, Reducer, formatMessage } from 'umi';
-import { query } from '@/services/offers';
+import { query, deleteOffer } from '@/services/offers';
 import { message } from 'antd';
 
 export interface StateType {
@@ -11,7 +11,7 @@ export interface ModelType {
   state: StateType;
   effects: {
     fetch: Effect;
-    // deleteSchool: Effect;
+    delete: Effect;
   };
   reducers: {
     queryList: Reducer<StateType>;
@@ -33,19 +33,18 @@ const Model: ModelType = {
         payload: items,
       });
     },
-    // *deleteSchool({ payload }, { call, put }) {
-    //   const { response } = yield call(deleteSchool, payload);
-    //   if(response.ok){
-    //     message.success(formatMessage({ id: 'messages.delete.school.success' }));
-    //     const { data } = yield call(query);
-    //     yield put({
-    //       type: 'queryList',
-    //       payload: Array.isArray(data) ? data : [],
-    //     });
-    //   } else {
-    //     message.error(formatMessage({ id: 'messages.delete.school.error' }));
-    //   }
-    // },
+    *delete({ payload }, { call, put }) {
+      const { data, response } = yield call(deleteOffer, payload);
+      debugger
+      if(response.ok){
+        message.success(formatMessage({ id: 'messages.delete.offer.success' }));
+        yield put({
+          type: 'fetch',
+        });
+      } else {
+        message.error(formatMessage({ id: 'messages.delete.offer.error' }));
+      }
+    },
   },
 
   reducers: {

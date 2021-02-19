@@ -57,7 +57,7 @@
               // },
               {
                 path: '/offers',
-                name: 'list.offers',
+                name: 'offers',
                 icon: 'table',
                 component: './Offers/list',
               },
@@ -69,7 +69,7 @@
                 hideInMenu: true,
               },
               {
-                path: '/offers/edit',
+                path: '/offers/:id',
                 name: 'offers.edit',
                 icon: 'TeamOutlined',
                 component: './Offers/edit',

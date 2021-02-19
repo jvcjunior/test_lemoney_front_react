@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { PlusOutlined } from '@ant-design/icons';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import {
@@ -36,7 +37,7 @@ export const SchoolsList: FC<BasicListProps> = (props) => {
 
   const deleteItem = (id: string) => {
     dispatch({
-      type: 'offersList/deleteSchool',
+      type: 'offersList/delete',
       payload: { id },
     });
   };
@@ -55,16 +56,38 @@ export const SchoolsList: FC<BasicListProps> = (props) => {
       key: 'description',
     },
     {
+      title: intl.formatMessage({ id: 'lists.header.status' }),
+      dataIndex: 'status',
+      width: '15%',
+      // key: 'status',
+      render: (text:string, record:any) => {
+        if(!record.status){
+          return;
+        }
+        return `${moment(record.starts_at)}`
+      }
+    },
+    {
       title: intl.formatMessage({ id: 'lists.header.starts_at' }),
       dataIndex: 'starts_at',
       width: '10%',
-      key: 'starts_at',
+      render: (text:string, record:any) => {
+        if(!record.starts_at){
+          return;
+        }
+        return `${moment(record.starts_at)}`
+      }
     },
     {
       title: intl.formatMessage({ id: 'lists.header.ends_at' }),
       dataIndex: 'ends_at',
       width: '10%',
-      key: 'ends_at',
+      render: (text:string, record:any) => {
+        if(!record.ends_at){
+          return;
+        }
+        return `${moment(record.ends_at)}`
+      }
     },
     {
       title: intl.formatMessage({ id: 'lists.header.url' }),
@@ -78,7 +101,7 @@ export const SchoolsList: FC<BasicListProps> = (props) => {
       width: '15%',
       render: (text: string, record: any) => (
         <span>
-          <Link to={`schools/${record.id}`}><FormattedMessage id='app.edit' /></Link>
+          <Link to={`offers/${record.id}`}><FormattedMessage id='app.edit' /></Link>
           <Divider type="vertical" />
           <Popconfirm
             placement="leftTop"
@@ -95,7 +118,7 @@ export const SchoolsList: FC<BasicListProps> = (props) => {
   ];
  
   return (
-    <PageHeaderWrapper title={intl.formatMessage({ id: 'menu.system.schools' })}>
+    <PageHeaderWrapper title={intl.formatMessage({ id: 'menu.offers' })}>
       <div className={styles.classesList}>
         <Card
           bordered={false}
