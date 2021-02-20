@@ -13,14 +13,12 @@ const CodePreview: React.FC = ({ children }) => (
 );
 
 export default (): React.ReactNode => {
-  const intl = useIntl();
+  // const intl = useIntl();
   return (
     <PageContainer>
       <Card>
         <Alert
-          message={intl.formatMessage({
-            id: 'pages.welcome.alertMessage',
-          })}
+          message="WELCOME TO LEMONEY LAND. CHECK YOUR OFFERS"
           type="success"
           showIcon
           banner
@@ -29,7 +27,7 @@ export default (): React.ReactNode => {
             marginBottom: 24,
           }}
         />
-        <Typography.Text strong>
+        {/* <Typography.Text strong>
           <FormattedMessage id="pages.welcome.advancedComponent"  />{' '}
           <a
             href="https://procomponents.ant.design/components/table"
@@ -55,7 +53,7 @@ export default (): React.ReactNode => {
             <FormattedMessage id="pages.welcome.link" />
           </a>
         </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-layout</CodePreview>
+        <CodePreview>yarn add @ant-design/pro-layout</CodePreview> */}
       </Card>
     </PageContainer>
   );

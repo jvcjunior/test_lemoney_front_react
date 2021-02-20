@@ -1,5 +1,5 @@
 import { Effect, Reducer, formatMessage } from 'umi';
-import { query, deleteOffer } from '@/services/offers';
+import { query, deleteOffer, disableOffer, enableOffer } from '@/services/offers';
 import { message } from 'antd';
 
 export interface StateType {
@@ -12,6 +12,8 @@ export interface ModelType {
   effects: {
     fetch: Effect;
     delete: Effect;
+    disable: Effect;
+    enable: Effect;
   };
   reducers: {
     queryList: Reducer<StateType>;
@@ -35,7 +37,6 @@ const Model: ModelType = {
     },
     *delete({ payload }, { call, put }) {
       const { data, response } = yield call(deleteOffer, payload);
-      debugger
       if(response.ok){
         message.success(formatMessage({ id: 'messages.delete.offer.success' }));
         yield put({
@@ -43,6 +44,28 @@ const Model: ModelType = {
         });
       } else {
         message.error(formatMessage({ id: 'messages.delete.offer.error' }));
+      }
+    },
+    *disable({ payload }, { call, put }) {
+      const { data, response } = yield call(disableOffer, payload);
+      if(response.ok){
+        message.success(formatMessage({ id: 'messages.disabled.offer.success' }));
+        yield put({
+          type: 'fetch',
+        });
+      } else {
+        message.error(formatMessage({ id: 'messages.disabled.offer.error' }));
+      }
+    },
+    *enable({ payload }, { call, put }) {
+      const { data, response } = yield call(enableOffer, payload);
+      if(response.ok){
+        message.success(formatMessage({ id: 'messages.enabled.offer.success' }));
+        yield put({
+          type: 'fetch',
+        });
+      } else {
+        message.error(formatMessage({ id: 'messages.enabled.offer.error' }));
       }
     },
   },

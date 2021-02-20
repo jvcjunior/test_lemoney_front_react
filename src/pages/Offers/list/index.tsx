@@ -42,6 +42,20 @@ export const SchoolsList: FC<BasicListProps> = (props) => {
     });
   };
 
+  const disableItem = (record: any) => {
+    if(record.disabled_by_user){
+      dispatch({
+        type: 'offersList/enable',
+        payload: { id: record.id },
+      });
+    } else {
+      dispatch({
+        type: 'offersList/disable',
+        payload: { id: record.id },
+      });
+    }
+  };
+
   const columns = [
     {
       title: intl.formatMessage({ id: 'lists.header.advertiser_name' }),
@@ -61,10 +75,14 @@ export const SchoolsList: FC<BasicListProps> = (props) => {
       width: '15%',
       // key: 'status',
       render: (text:string, record:any) => {
-        if(!record.status){
-          return;
+        if(record.disabled_by_user){
+          return 'Disabled'  
         }
-        return `${moment(record.starts_at)}`
+
+        if(!record.ends_at || moment().isAfter(moment(record.starts_at))){
+          return 'Enabled';
+        }
+        return 'Disabled'
       }
     },
     {
@@ -112,6 +130,8 @@ export const SchoolsList: FC<BasicListProps> = (props) => {
           >
             <a href="#"><FormattedMessage id='app.delete' /></a>
           </Popconfirm>
+          <Divider type="vertical" />
+          <Button onClick={() => disableItem(record)} type="link">{record.disabled_by_user ? 'Enable' : 'Disable'}</Button>
         </span>
       ),
     },

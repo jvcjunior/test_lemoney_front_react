@@ -21,6 +21,20 @@ export async function editOffer({ offerId, data }: any): Promise<any> {
   });
 }
 
+export async function disableOffer({ id, data }: any): Promise<any> {
+  return request(`/api/offers/${id}/disable`, {
+    method: 'put',
+    data: { disabled_by_user: true },
+  });
+}
+
+export async function enableOffer({ id, data }: any): Promise<any> {
+  return request(`/api/offers/${id}/disable`, {
+    method: 'put',
+    data: { disabled_by_user: false },
+  });
+}
+
 export async function getOffer(offerId: any): Promise<any> {
   return request(`/api/offers/${offerId}`);
 }

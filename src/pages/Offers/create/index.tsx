@@ -19,7 +19,10 @@ const CreateOfferForm: FC<BasicFormProps> = (props) => {
   const onFinish = (values: { [key: string]: any }) => {
     dispatch({
       type: 'offerForm/addOffer',
-      payload: values
+      payload: {
+        ...values,
+        premium: !!values.premium
+      }
     });
   };
 

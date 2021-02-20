@@ -34,7 +34,10 @@ const EditOfferForm: FC<BasicFormProps> = (props) => {
       type: 'offerForm/editOffer',
       payload: {
         offerId: match.params.id,
-        data: values,
+        data: {
+          ...values,
+          premium: !!values.premium
+        },
       },
     });
   };

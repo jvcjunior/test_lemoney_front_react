@@ -15,6 +15,7 @@ export default {
   'app.no': 'No',
   'app.edit': 'Edit',
   'app.delete': 'Destroy',
+  'app.disable': 'Disable',
   'form.save': 'Save',
   'form.cancel': 'Cancel',
   'questions.delete.record': 'Are you sure you want to Destroy?',
